@@ -1,16 +1,15 @@
 package khai.edu.epos_re.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/registration")
+public class RegistrationController {
 
     @GetMapping
-    public String login() {
-        return "html/login.html";
+    public String registation(){
+        return "html/registration.html";
     }
 }
