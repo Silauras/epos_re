@@ -1,5 +1,7 @@
-package khai.edu.epos_re.entity;
+package khai.edu.epos_re.model.department;
 
+import khai.edu.epos_re.model.permission.Permission;
+import khai.edu.epos_re.model.user_account.UserAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

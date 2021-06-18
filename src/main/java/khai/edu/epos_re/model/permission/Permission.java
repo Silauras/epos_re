@@ -1,5 +1,7 @@
-package khai.edu.epos_re.entity;
+package khai.edu.epos_re.model.permission;
 
+import khai.edu.epos_re.model.department.Department;
+import khai.edu.epos_re.model.user_account.UserAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +36,8 @@ public class Permission {
     @EqualsAndHashCode.Exclude
     @Column(name = "permission_id")
     private UUID id;
+
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
