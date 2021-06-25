@@ -2,7 +2,7 @@ package khai.edu.epos_re.security.filters;
 
 public final class SecurityConstants {
 
-    static final String AUTH_LOGIN_URL = "api/auth/login";
+    static final String AUTH_LOGIN_URL = "/api/auth/login";
 
     // Signing key for HS512 algorithm
     // You can use the page http://www.allkeysgenerator.com/ to generate all kinds of keys

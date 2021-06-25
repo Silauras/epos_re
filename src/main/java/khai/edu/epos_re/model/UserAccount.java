@@ -5,7 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
+import java.security.AlgorithmConstraints;
 import java.security.MessageDigest;
+import java.security.Security;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -52,13 +54,14 @@ public class UserAccount {
     private Department departmentWhereAdmin;
 
     @SneakyThrows
-    public static String getSHA_256_SecurePassword(String passwordToHash, String salt){
+    public static String getSHA_512_SecurePassword(String passwordToHash, String salt){
         String generatedPassword = null;
 
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
         messageDigest.update(salt.getBytes(StandardCharsets.UTF_8));
         byte[] bytes = messageDigest.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
         StringBuilder stringBuilder = new StringBuilder();
+
         for (byte aByte : bytes) {
             stringBuilder.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
 

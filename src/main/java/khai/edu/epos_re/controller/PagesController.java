@@ -8,7 +8,7 @@ public class PagesController {
 
     @GetMapping("/")
     public String mainPage(){
-        return "static/index.html";
+        return "static/html/index.html";
     }
 
 

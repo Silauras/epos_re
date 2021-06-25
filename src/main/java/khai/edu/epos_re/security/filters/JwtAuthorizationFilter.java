@@ -5,6 +5,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import khai.edu.epos_re.model.UserAccount;
 import khai.edu.epos_re.security.UserAccountPrincipal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -32,10 +36,11 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username = request.getParameter("userName");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
+        logger.debug("JwtAuthorizationFilter: username:" + username+ ", password: " + password);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                username, UserAccount.getSHA_256_SecurePassword(password, SecurityConstants.PASSWORD_SALT));
+                username, UserAccount.getSHA_512_SecurePassword(password, SecurityConstants.PASSWORD_SALT));
 
         return authenticationManager.authenticate(authenticationToken);
     }

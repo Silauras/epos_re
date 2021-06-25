@@ -22,8 +22,8 @@ public class RegistrationService {
     public void registerUserAccount(RegistrationRequest request){
         UserAccount userAccount = UserAccount.builder()
                 .username(request.getUsername())
-                .hashedPassword(UserAccount.getSHA_256_SecurePassword(request.getPassword(), SecurityConstants.PASSWORD_SALT))
-                .fullName(request.getPassword())
+                .hashedPassword(UserAccount.getSHA_512_SecurePassword(request.getPassword(), SecurityConstants.PASSWORD_SALT))
+                .fullName(request.getFullName())
                 .build();
         userAccountRepository.save(userAccount);
 
